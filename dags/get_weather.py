@@ -20,7 +20,7 @@ def random_square_print():
 def print_weather(**kwargs):
     response = kwargs['ti'].xcom_pull(key=None, task_ids='get_weather')
     data = json.loads(response)
-    print(f"Weather in Sankt-Peterburg: temperature {data['temperature']}; wind {data['wind']}; description {data['description']}")
+    print(f"Weather in Novosibirsk: temperature {data['temperature']}; wind {data['wind']}; description {data['description']}")
 
 
 dag = DAG(dag_id='get_weather', default_args=default_args, schedule_interval=None)
@@ -41,7 +41,7 @@ task3 = SimpleHttpOperator(
     task_id='get_weather',
     method='GET',
     http_conn_id='goweather_api',
-    endpoint='/weather/Sankt-Petersburg',
+    endpoint='/weather/Novosibirsk',
     headers={},
     dag=dag
 )
