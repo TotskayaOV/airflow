@@ -39,7 +39,7 @@ def transform_data(**kwargs):
     data = pd.merge(booking, hotel, on='hotel_id').merge(client, on='client_id')
     data.rename(columns={'name_x': 'name_hotel', 'name_y': 'name_client', 'address': 'address_hotel'}, inplace=True)
     data = data[['booking_date', 'client_id', 'name_client', 'type', 'age', 'hotel_id', 'name_hotel', 'room_type',
-                 'bookinh_cost', 'currency']]
+                 'booking_cost', 'currency']]
     if not os.path.exists('data/data.csv'):
         data.to_csv('data/data.csv', index=False)
     else:
@@ -55,7 +55,7 @@ default_args = {
     'start_date': datetime(2024, 3, 23)
 }
 
-with DAG('trensform_data', default_args=default_args, schedule_interval=None) as dag:
+with DAG('transform_data', default_args=default_args, schedule_interval=None) as dag:
     get_booking = PythonOperator(
         task_id='get_booking_df',
         python_callable=get_booking_df
